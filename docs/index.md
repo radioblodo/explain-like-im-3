@@ -6,11 +6,8 @@ hero:
   text: "Docs translated into human language."
   tagline: "Mental models + input→output examples across Python, Java, Web, etc."
   actions:
-    - theme: brand
-      text: Start here
-      link: /start
     - theme: alt
-      text: Browse topics
+      text: CTF Solutions
       link: /topics
 
 features:

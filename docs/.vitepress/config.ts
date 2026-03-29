@@ -7,19 +7,8 @@ export default defineConfig({
   base: '/explain-like-im-3/',
   themeConfig: {
     nav: [
-      { text: 'Start here', link: '/start' },
       { text: 'Tooling', link: '/tooling/' },
-      { text: 'Topics', link: '/topics' },
-      { text: 'Glossary', link: '/glossary' },
-      {
-        text: 'Languages',
-        items: [
-          { text: 'Python', link: '/python/' },
-          { text: 'Java', link: '/java/' },
-          { text: 'Web', link: '/web/' },
-          { text: 'Linux', link: '/linux/' }
-        ]
-      },
+      { text: 'CTF Solutions', link: '/topics' },
       { text: 'About', link: '/about' }
     ],
     sidebar: {
