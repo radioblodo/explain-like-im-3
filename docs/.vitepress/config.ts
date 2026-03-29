@@ -8,6 +8,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Start here', link: '/start' },
+      { text: 'Tooling', link: '/tooling/' },
       { text: 'Topics', link: '/topics' },
       { text: 'Glossary', link: '/glossary' },
       {
@@ -20,6 +21,32 @@ export default defineConfig({
         ]
       },
       { text: 'About', link: '/about' }
-    ]
+    ],
+    sidebar: {
+      '/tooling/': [
+        {
+          text: 'Tooling',
+          items: [
+            { text: 'Overview', link: '/tooling/' },
+            { text: 'Recon and Enumeration', link: '/tooling/recon/' },
+            { text: 'Exploitation', link: '/tooling/exploitation/' }
+          ]
+        },
+        {
+          text: 'Recon and Enumeration',
+          items: [
+            { text: 'Nmap', link: '/tooling/recon/nmap' },
+            { text: 'Amass', link: '/tooling/recon/amass' }
+          ]
+        },
+        {
+          text: 'Exploitation',
+          items: [
+            { text: 'Metasploit', link: '/tooling/exploitation/metasploit' },
+            { text: 'Searchsploit', link: '/tooling/exploitation/searchsploit' }
+          ]
+        }
+      ]
+    }
   }
 })
