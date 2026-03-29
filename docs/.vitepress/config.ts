@@ -34,6 +34,13 @@ export default defineConfig({
             { text: 'Metasploit', link: '/tooling/exploitation/metasploit' },
             { text: 'Searchsploit', link: '/tooling/exploitation/searchsploit' }
           ]
+        },
+        {
+          text: 'Post-exploitation',
+          items: [
+            { text: 'Overview', link: '/tooling/post_exploitation/' },
+            { text: 'Ligolo', link: '/tooling/post_exploitation/ligolo' }
+          ]
         }
       ]
     }
