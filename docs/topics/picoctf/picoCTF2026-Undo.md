@@ -1,9 +1,8 @@
-# picoCTF: strings-it
+# picoCTF: Undo
 
 - Platform: picoCTF
 - Category: General Skills
-- Points: 100
-- Date: 2026-03-29
+- Date: 2026-03-30
 - Tags: strings, string transformations
 
 ## Problem
@@ -41,10 +40,6 @@ echo "base64encodedstring" | openssl enc -base64 -d
 openssl enc -base64 -d -in encodedfile -out decodedfile 
 ```
 
-## Steps
-```sh
-strings strings | rg picoCTF
-```
 In this case for step 2, we enter the following command 
 ```bash
 base64 -d 
