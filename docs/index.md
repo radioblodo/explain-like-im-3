@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "Explain Like I’m 3"
-  text: "Docs translated into human language."
-  tagline: "Mental models + input→output examples across Python, Java, Web, etc."
+  text: "A repository for the hackers"
+  tagline: "Cyber tools, libraries and CTF write ups"
   actions:
     - theme: alt
       text: CTF Solutions
@@ -13,10 +13,10 @@ hero:
 features:
   - title: Plain language
     details: No jargon. Just what’s actually happening.
-  - title: Input → Output
-    details: Examples you can copy, run, and understand.
-  - title: Mental models
-    details: The “why” behind every line.
+  - title: Commonly used commands
+    details: Explanations anyone can understand
+  - title: CTF write ups
+    details: Solutions to online CTFs.
 ---
 
 <!-- Optional extra markdown content below -->
