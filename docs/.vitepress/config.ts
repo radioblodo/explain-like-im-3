@@ -12,6 +12,21 @@ export default defineConfig({
       { text: 'About', link: '/about' }
     ],
     sidebar: {
+      '/topics/': [
+        {
+          text: 'CTF Solutions',
+          items: [
+            { text: 'Overview', link: '/topics/' },
+            { text: 'picoCTF: strings-it', link: '/topics/picoctf/strings-it' }
+          ]
+        },
+        {
+          text: 'picoCTF',
+          items: [
+            { text: 'strings-it', link: '/topics/picoctf/strings-it' }
+          ]
+        }
+      ],
       '/tooling/': [
         {
           text: 'Tooling',
