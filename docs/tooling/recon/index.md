@@ -1,8 +1,8 @@
 ---
-title: Recon and Enumeration
+title: Recon
 ---
 
-# Recon and Enumeration
+# Recon
 
 Find what is running, where it lives, and how it is exposed.
 
