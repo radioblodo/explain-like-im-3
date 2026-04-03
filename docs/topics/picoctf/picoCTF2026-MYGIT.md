@@ -9,32 +9,32 @@
 We are provided with a github repository to clone and follow the instructions after cleaning. The instructions are written in the README.md in the folder. 
 
 ## Approach
-Step 1: Clone the repository 
+**Step 1:** Clone the repository 
 ```bash
 git clone ssh://git@foggy-cliff.picoctf.net:57338/git/challenge.git
 ```
 
-Step 2: Read the instructions in README.md 
+**Step 2:** Read the instructions in README.md 
 ```bash 
 cat README.md
 ```
 
-Step 3: Change the username
+**Step 3:** Change the username
 ```bash 
 git config user.name "root"
 ```
 
-Step 4: Change the user email 
+**Step 4:** Change the user email 
 ```bash 
 git config user.email "root@picoctf"
 ```
 
-Step 5: Create an empty flag.txt file 
+**Step 5:** Create an empty flag.txt file 
 ```bash 
 vim flag.txt
 ```
 
-Step 6: Push the changes into the remote repository 
+**Step 6:** Push the changes into the remote repository 
 ```bash 
 git add flag.txt 
 git commit -m "added flag.txt"

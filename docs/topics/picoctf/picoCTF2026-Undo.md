@@ -9,12 +9,12 @@
 When we start the instance on picoCTF, we are given an endpoint and a port to connect to. When connected, we are presented with a string and a hint text. The problem is designed to guide the player to crack for the flag in a step by step manner. 
 
 ## Approach
-Step 1: Connect to the endpoint via the code provided using a terminal 
+**Step 1:** Connect to the endpoint via the code provided using a terminal 
 ```bash
 nc foggy-cliff.picoctf.net 60189
 ```
 
-Step 2: Follow the hint at each step and enter the command only, do not include the string the command is applied on
+**Step 2:** Follow the hint at each step and enter the command only, do not include the string the command is applied on
 
 For the first hint, we are asked to decode a base64 encoded string and there are several ways to do this. The most common method to decode a base64 encoded string would be to use the `base64 -d` command, which is part of the coreutils package that is commonly preinstalled on most linux distributions. The typical usages are below. 
 
@@ -45,7 +45,7 @@ In this case for step 2, we enter the following command
 base64 -d 
 ```
 
-Step 3: The second hint asks us to reverse the text
+**Step 3:** The second hint asks us to reverse the text
 To reverse the text, there are also 2 ways to achieve this. 
 The easiest and most straightforward method to achieve this is to pipe the string into the `rev` command, such as in the example below. 
 
@@ -84,19 +84,19 @@ Thus for this step, the answer we input should be
 rev 
 ```
 
-Step 4: Replace '-' with '_' 
+**Step 4:** Replace '-' with '_' 
 This is related to the hint provided on picoCTF site and we can use the `tr` command to achieve this easily. 
 ```bash
 tr '-' '_' 
 ``` 
 
-Step 5: Replace '(' with '{' and ')' with '}' 
+**Step 5:** Replace '(' with '{' and ')' with '}' 
 Similar to before, this step is teaching us that the `tr` command can be applied on multiple characters in a single command, hence we input 
 ```bash 
 tr '()' '{}' 
 ``` 
 
-Step 6: Apply ROT13 to the letters 
+**Step 6:** Apply ROT13 to the letters 
 Again, for this rotation, we can use the `tr` command to achieve that 
 ```bash 
 tr 'A-Za-z' 'N-ZA-Mn-za-m'
