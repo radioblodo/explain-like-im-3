@@ -36,6 +36,7 @@ async function initWaline() {
       path: route.path,
       meta: ['nick', 'mail', 'link'],
       requiredMeta: ['nick'],
+      login: 'disable',
       lang: 'en',
       emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo'],
       dark: 'html.dark'
