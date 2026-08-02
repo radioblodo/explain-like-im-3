@@ -7,7 +7,13 @@ export default defineConfig({
   base: '/explain-like-im-3/',
   themeConfig: {
     waline: {
-      serverURL: 'https://personal-blog-comments.vercel.app'
+      serverURL: 'https://personal-blog-comments.vercel.app',
+      meta: ['nick', 'mail', 'link'],
+      requiredMeta: ['nick'],
+      lang: 'en',
+      emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo'],
+      wordLimit: 0,
+      pageSize: 10
     },
     nav: [
       { text: 'Tooling', link: '/tooling/' },

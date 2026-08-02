@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, watch, computed, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, watch, computed, ref } from 'vue'
 import { useData, useRoute } from 'vitepress'
 
 const { theme, frontmatter } = useData()
@@ -9,16 +9,45 @@ const walineContainer = ref(null)
 let walineInstance = null
 let initFn = null
 
-const serverURL = computed(() => {
-  return theme.value.waline?.serverURL || 'https://personal-blog-comments.vercel.app'
-})
+const walineOptions = computed(() => ({
+  serverURL: 'https://personal-blog-comments.vercel.app',
+  meta: ['nick', 'mail', 'link'],
+  requiredMeta: ['nick'],
+  lang: 'en',
+  emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo'],
+  wordLimit: 0,
+  pageSize: 10,
+  dark: 'html.dark',
+  ...theme.value.waline
+}))
 
 const showComments = computed(() => {
-  return frontmatter.value.layout !== 'home' && frontmatter.value.comments !== false
+  if (frontmatter.value.comments === true) return true
+  if (frontmatter.value.comments === false || frontmatter.value.layout === 'home') return false
+
+  return !route.path.endsWith('/') && route.path !== '/about'
 })
 
+const walinePath = () => window.location.pathname
+
+function destroyWaline() {
+  if (walineInstance && typeof walineInstance.destroy === 'function') {
+    walineInstance.destroy()
+  }
+
+  walineInstance = null
+}
+
 async function initWaline() {
-  if (typeof window === 'undefined' || !showComments.value || !serverURL.value) return
+  if (typeof window === 'undefined') return
+
+  if (!showComments.value || !walineOptions.value.serverURL) {
+    destroyWaline()
+    return
+  }
+
+  await nextTick()
+  if (!walineContainer.value) return
 
   if (!initFn) {
     const walineModule = await import('@waline/client')
@@ -27,19 +56,13 @@ async function initWaline() {
 
   if (walineInstance) {
     walineInstance.update({
-      path: route.path
+      path: walinePath()
     })
   } else {
     walineInstance = initFn({
-      el: '#waline',
-      serverURL: serverURL.value,
-      path: route.path,
-      meta: ['nick', 'mail', 'link'],
-      requiredMeta: ['nick'],
-      login: 'disable',
-      lang: 'en',
-      emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo'],
-      dark: 'html.dark'
+      ...walineOptions.value,
+      el: walineContainer.value,
+      path: walinePath()
     })
   }
 }
@@ -48,21 +71,17 @@ onMounted(() => {
   initWaline()
 })
 
-watch(() => route.path, () => {
-  initWaline()
-})
+watch(() => route.path, initWaline)
+watch(showComments, initWaline)
 
 onUnmounted(() => {
-  if (walineInstance && typeof walineInstance.destroy === 'function') {
-    walineInstance.destroy()
-    walineInstance = null
-  }
+  destroyWaline()
 })
 </script>
 
 <template>
   <div v-if="showComments" class="waline-container">
-    <div id="waline" ref="walineContainer"></div>
+    <div ref="walineContainer"></div>
   </div>
 </template>
 
