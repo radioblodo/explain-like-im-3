@@ -2,7 +2,7 @@
 import { nextTick, onMounted, onUnmounted, watch, computed, ref } from 'vue'
 import { useData, useRoute } from 'vitepress'
 
-const { theme, frontmatter } = useData()
+const { site, theme, frontmatter } = useData()
 const route = useRoute()
 
 const walineContainer = ref(null)
@@ -25,7 +25,16 @@ const showComments = computed(() => {
   if (frontmatter.value.comments === true) return true
   if (frontmatter.value.comments === false || frontmatter.value.layout === 'home') return false
 
-  return !route.path.endsWith('/') && route.path !== '/about'
+  const base = site.value.base || '/'
+  const path = route.path.startsWith(base)
+    ? route.path.slice(base.length - 1)
+    : route.path
+
+  if (path === '/' || path === '/index.html' || path === '/about' || path === '/about.html') {
+    return false
+  }
+
+  return !path.endsWith('/') && !path.endsWith('/index.html')
 })
 
 const walinePath = () => window.location.pathname
