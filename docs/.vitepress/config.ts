@@ -6,6 +6,9 @@ export default defineConfig({
   description: 'Docs translated into human language.',
   base: '/explain-like-im-3/',
   themeConfig: {
+    waline: {
+      serverURL: 'https://personal-blog-comments.vercel.app'
+    },
     nav: [
       { text: 'Tooling', link: '/tooling/' },
       { text: 'CTF & Labs', link: '/topics/' },
