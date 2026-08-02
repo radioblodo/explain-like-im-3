@@ -8,39 +8,57 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Tooling', link: '/tooling/' },
-      { text: 'CTF Solutions', link: '/topics' },
+      { text: 'CTF & Labs', link: '/topics/' },
       { text: 'About', link: '/about' }
     ],
     sidebar: {
       '/topics/': [
         {
-          text: 'CTF Solutions',
+          text: 'Hack The Box',
           items: [
-            { text: 'Overview', link: '/topics/' },
-            { text: 'picoCTF: strings-it', link: '/topics/picoctf/strings-it' }
+            { text: 'HTB Overview', link: '/topics/htb/' },
+            { text: 'Meow', link: '/topics/htb/meow' },
+            { text: 'Fawn', link: '/topics/htb/fawn' },
+            { text: 'Cicada', link: '/topics/htb/cicada' }
           ]
         },
         {
           text: 'picoCTF',
           items: [
-            { text: 'strings-it', link: '/topics/picoctf/strings-it' }
+            { text: 'picoCTF2026: Undo', link: '/topics/picoctf/picoCTF2026-Undo' },
+            { text: 'picoCTF2026: MYGIT', link: '/topics/picoctf/picoCTF2026-MYGIT' },
+            { text: 'picoCTF2026: bytemancy 1', link: '/topics/picoctf/picoCTF2026-bytemancy1' }
+          ]
+        },
+        {
+          text: 'OSCP Practice Labs',
+          items: [
+            { text: 'OSCP Overview', link: '/topics/oscp/' },
+            { text: 'MedTech Challenge', link: '/topics/oscp/medtech' },
+            { text: 'OSCP Lab Set A', link: '/topics/oscp/oscp-a' },
+            { text: 'Public Exploits Practice', link: '/topics/oscp/public-exploits-practice' }
           ]
         }
       ],
       '/tooling/': [
         {
-          text: 'Tooling',
+          text: 'Overview',
           items: [
-            { text: 'Overview', link: '/tooling/' },
-            { text: 'Recon and Enumeration', link: '/tooling/recon/' },
-            { text: 'Exploitation', link: '/tooling/exploitation/' }
+            { text: 'Tooling Overview', link: '/tooling/' }
           ]
         },
         {
-          text: 'Recon and Enumeration',
+          text: 'Recon & Scanning',
           items: [
             { text: 'Nmap', link: '/tooling/recon/nmap' },
-            { text: 'Amass', link: '/tooling/recon/amass' }
+            { text: 'Amass', link: '/tooling/recon/amass' },
+            { text: 'Nessus', link: '/tooling/scanning/nessus' }
+          ]
+        },
+        {
+          text: 'Web Security',
+          items: [
+            { text: 'SQL Injection', link: '/tooling/web/sql-injection' }
           ]
         },
         {
@@ -51,10 +69,16 @@ export default defineConfig({
           ]
         },
         {
+          text: 'Privilege Escalation',
+          items: [
+            { text: 'Windows PrivEsc', link: '/tooling/privilege_escalation/windows-privesc' }
+          ]
+        },
+        {
           text: 'Post-exploitation',
           items: [
             { text: 'Overview', link: '/tooling/post_exploitation/' },
-            { text: 'Ligolo', link: '/tooling/post_exploitation/ligolo' }
+            { text: 'Ligolo-ng', link: '/tooling/post_exploitation/ligolo' }
           ]
         }
       ]
