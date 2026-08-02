@@ -1,5 +1,13 @@
 @import '@waline/client/waline.css';
 
+/* Waline Anonymous Comment Enforcements */
+#waline .wl-login-info,
+#waline .wl-user,
+#waline button.wl-login-btn,
+#waline a[href*="github.com/login"] {
+  display: none !important;
+}
+
 .tool-grid {
   display: grid;
   gap: 1rem;
