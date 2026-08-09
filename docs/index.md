@@ -13,10 +13,16 @@ hero:
 features:
   - title: Plain language
     details: No jargon. Just what’s actually happening.
+    link: /about
+    linkText: Learn more
   - title: Commonly used commands
     details: Explanations anyone can understand
+    link: /tooling/
+    linkText: Browse tooling
   - title: CTF write ups
     details: Solutions to online CTFs.
+    link: /topics/
+    linkText: View write ups
 ---
 
 <!-- Optional extra markdown content below -->

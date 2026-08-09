@@ -14,6 +14,7 @@ Walkthroughs for HTB machines focused on network services, Active Directory, and
 - **[Meow](/topics/htb/meow)** - Telnet enumeration and unauthenticated root access.
 - **[Fawn](/topics/htb/fawn)** - vsFTPd banner grabbing, anonymous logins, and file downloads.
 - **[Cicada](/topics/htb/cicada)** - SMB guest access, RID brute-forcing, LDAP credential leaks, `SeBackupPrivilege`, and secretsdump.
+- **[Connected](/topics/htb/connected)** - FreePBX `CVE-2025-57819` exploitation and Linux privilege escalation through `incron.d`/DAHDI config abuse.
 
 ---
 

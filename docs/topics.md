@@ -13,6 +13,7 @@ Explore step-by-step solutions, key takeaways, and methodologies across online C
 - [Meow](/topics/htb/meow) *(Linux - Telnet, Unauthenticated Root Access)*
 - [Fawn](/topics/htb/fawn) *(Linux - FTP, vsFTPd Anonymous Login)*
 - [Cicada](/topics/htb/cicada) *(Windows - Active Directory, RID Brute, LDAP, SeBackupPrivilege, Secretsdump)*
+- [Connected](/topics/htb/connected) *(Linux - FreePBX CVE-2025-57819, Asterisk, incron, DAHDI config abuse)*
 
 ---
 

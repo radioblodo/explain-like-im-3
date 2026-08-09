@@ -28,7 +28,8 @@ export default defineConfig({
             { text: 'HTB Overview', link: '/topics/htb/' },
             { text: 'Meow', link: '/topics/htb/meow' },
             { text: 'Fawn', link: '/topics/htb/fawn' },
-            { text: 'Cicada', link: '/topics/htb/cicada' }
+            { text: 'Cicada', link: '/topics/htb/cicada' },
+            { text: 'Connected', link: '/topics/htb/connected' }
           ]
         },
         {
