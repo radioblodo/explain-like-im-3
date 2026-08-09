@@ -31,14 +31,9 @@ Fill these in as you work through the box:
 |---|---|
 | Target IP | `10.129.21.175` |
 | Hostname | `connected.htb` |
-| Attacker IP | `<FILL_IN_ATTACKER_IP>` |
-| Initial listener port | `443` or `<FILL_IN>` |
-| Root listener port | `4545` or `<FILL_IN>` |
 | Open ports | `22, 80, 443` |
 | Web software | `FreePBX 16.0.40.7` |
 | Initial user | `asterisk` |
-| User flag | `<FILL_IN_USER_FLAG>` |
-| Root flag | `<FILL_IN_ROOT_FLAG>` |
 
 ---
 
