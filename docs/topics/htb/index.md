@@ -16,6 +16,7 @@ Welcome to the Hack The Box section of **Explain Like I'm 3**. Here you'll find 
 | **Meow** | Linux | Very Easy | Telnet, Unauthenticated Root Access | [Read Writeup](/topics/htb/meow) |
 | **Fawn** | Linux | Very Easy | FTP, vsFTPd, Anonymous Login | [Read Writeup](/topics/htb/fawn) |
 | **Cicada** | Windows | Easy | Active Directory, RID Brute, LDAP, SeBackupPrivilege, Secretsdump | [Read Writeup](/topics/htb/cicada) |
+| **TwoMillion** | Linux | Easy | API enumeration, JavaScript deobfuscation, command injection, Linux privilege escalation | [Read Writeup](/topics/htb/twomillion) |
 | **Connected** | Linux | Medium | FreePBX CVE-2025-57819, Asterisk, incron, DAHDI config abuse | [Read Writeup](/topics/htb/connected) |
 
 ---
