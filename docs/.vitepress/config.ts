@@ -29,7 +29,9 @@ export default defineConfig({
             { text: 'Meow', link: '/topics/htb/meow' },
             { text: 'Fawn', link: '/topics/htb/fawn' },
             { text: 'Cicada', link: '/topics/htb/cicada' },
+            { text: 'Support', link: '/topics/htb/support' },
             { text: 'TwoMillion', link: '/topics/htb/twomillion' },
+            { text: 'Kobold', link: '/topics/htb/kobold' },
             { text: 'Connected', link: '/topics/htb/connected' }
           ]
         },

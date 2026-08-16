@@ -1,46 +1,108 @@
 ---
-title: "HTB: Two Million"
-description: "Hack The Box - Two Million Writeup"
+title: "HTB: Support"
+description: "Hack The Box - Support Writeup"
 tags: [htb, connected, freepbx, asterisk, cve-2025-57819, linux, medium]
 ---
 
-### Task 1: TCP Ports
-**Question:** How many TCP ports are open?
+### Task 1: SMB Shares
+**Question:** How many shares is Support showing on SMB?
 
 ```bash 
-nmap -sV 10.129.229.66 -T4
-Starting Nmap 7.95 ( https://nmap.org ) at 2026-08-10 09:32 +08
-Nmap scan report for 10.129.229.66 (10.129.229.66)
-Host is up (0.025s latency).
-Not shown: 998 closed tcp ports (reset)
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.1 (Ubuntu Linux; protocol 2.0)
-80/tcp open  http    nginx
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+└─$ sudo nmap -sC -sV 10.129.23.228 -T4
+[sudo] password for ziliang:
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-08-11 22:23 +08
+Nmap scan report for 10.129.23.228 (10.129.23.228)
+Host is up (0.022s latency).
+Not shown: 988 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        (generic dns response: SERVFAIL)
+| fingerprint-strings:
+|   DNS-SD-TCP:
+|     _services
+|     _dns-sd
+|     _udp
+|_    local
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-08-11 14:22:48Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: support.htb0., Site: Default-First-Site-Nam
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: support.htb0., Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped
+5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port53-TCP:V=7.95%I=7%D=8/11%Time=6A7B3063%P=x86_64-pc-linux-gnu%r(DNS-
+SF:SD-TCP,30,"\0\.\0\0\x80\x82\0\x01\0\0\0\0\0\0\t_services\x07_dns-sd\x04
+SF:_udp\x05local\0\0\x0c\0\x01");
+Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: -29s
+| smb2-security-mode:
+|   3:1:1:
+|_    Message signing enabled and required
+| smb2-time:
+|   date: 2026-08-11T14:23:10
+|_  start_date: N/A
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 7.35 seconds
+Nmap done: 1 IP address (1 host up) scanned in 71.71 seconds
+
+# Find out the number of SMB shares
+smbclient -L //10.129.23.228 -U guest 
+Password for [WORKGROUP\guest]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share 
+        support-tools   Disk      support staff tools
+        SYSVOL          Disk      Logon server share 
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.129.23.228 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
 ```
 
-Ans: `2` 
+Ans: `6` 
 
-### Task 2 Browser Inspector 
-**Question:** What is the name of the JavaScript file loaded by the /invite page that has to do with invite codes?
+### Task 2 Default Share of Windows Domain Controller
+**Question:** Which share is not a default share for a Windows domain controller?
 
-To find out the name of the Javascript, we can open the browser inspector and go to the Sources tab, then append `/invite` to the end of the website's endpoint. There, we will see that a request was sent using the `inviteapi.min.js` script. 
+From the output above, we can observe that shares with a `$` at the end are the default shares of a Windows Domain Controller. Additionally, the NETLOGON and SYSVOL are Logon server share, hence, those 2 are also the default shares of a Windows Domain Controller. The only share that is non-default would be `support-tools`. 
 
-Ans: `inviteapi.min.js`
+Ans: `support-tools`
 
-### Task 3 Javascript Deobfuscation 
-**Question:** What JavaScript function on the invite page returns the first hint about how to get an invite code? Don't include () in the answer.
+### Task 3 Getting Items from a SMB share  
+**Question:** Almost all of the files in this share are publicly available tools, but one is not. What is the name of that file?
 
-This problem involves Javascript that has been minified or obfuscated and hence, to find the relevant function that provides invite code, we need to copy the Javascript code and deobfuscate it. To do this, we can make use of the tool recommended in the hint, [de4js](https://thanhle.io.vn/de4js/). By pasting the code into the tool and clicking on auto-decode, we can see that there are only 2 functions, `verifyInviteCode(code)` and `makeInviteCode()`, hence, the answer would be `makeInviteCode`.
+We need to first connect to the `support-tools` share as a guest. To do this, we can run the following command. 
 
-![Deobfuscated JavaScript showing makeInviteCode](../../assets/htb/twomillion_deobfuscatedjs.png)
+```bash
+smbclient -N //10.129.23.228/support-tools
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Thu Jul 21 01:01:06 2022
+  ..                                  D        0  Sat May 28 19:18:25 2022
+  7-ZipPortable_21.07.paf.exe         A  2880728  Sat May 28 19:19:19 2022
+  npp.8.4.1.portable.x64.zip          A  5439245  Sat May 28 19:19:55 2022
+  putty.exe                           A  1273576  Sat May 28 19:20:06 2022
+  SysinternalsSuite.zip               A 48102161  Sat May 28 19:19:31 2022
+  UserInfo.exe.zip                    A   277499  Thu Jul 21 01:01:07 2022
+  windirstat1_1_2_setup.exe           A    79171  Sat May 28 19:20:17 2022
+  WiresharkPortable64_3.6.5.paf.exe      A 44398000  Sat May 28 19:19:43 2022 
+```
+From the output, `7-ZipPortable_21.07.paf.exe` is a publicly available open-source tool to compress files, `npp.8.4.1.portable.x64.zip` is the 64-bit portable archive for Notepad++ version 8.4.1, released on May 11, 2022, `putty.exe` is the main executable file for PuTTY, a free and open-source terminal emulator and network file transfer application used primarily on Windows, `SysinternalsSuite.zip` is a compressed folder containing the official Microsoft Sysinternals troubleshooting tools, such as Process Explorer, Autoruns, and PsTools, `windirstat1_1_2_setup.exe` is the installer file for WinDirStat (Windows Directory Statistics) version 1.1.2, a classic free disk usage statistics viewer and cleanup tool for Windows that graphically displays folder and file sizes to help free up storage space, `WiresharkPortable64_3.6.5.paf.exe` is the 64-bit portable installer file for Wireshark version 3.6.5, packaged in the PortableApps format (.paf.exe). Thus, the only file that is not openly available would be `UserInfo.exe.zip`. 
 
-Ans: `makeInviteCode`
+Ans: `UserInfo.exe.zip`
 
-### Task 4 Text Encoding 
+### Task 4 Downloading files from SMB share
 **Question:** The endpoint in makeInviteCode returns encrypted data. That message provides another endpoint to query. That endpoint returns a code value that is encoded with what very common binary to text encoding format. What is the name of that encoding?
 
 Ans: `base64` 
